@@ -1,0 +1,282 @@
+{% extends "master.html" %}
+{% block content %}
+    <!-- Main content -->
+    <div class="main-content">
+        <!-- Top navbar -->
+        <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+            <div class="container-fluid">
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ url_for('dashboard') }}">Analyze</a>
+                <br>
+
+                <div class="media align-items-center">
+                    {#                <span class="avatar avatar-sm rounded-circle">#}
+                    {#                  <img alt="Image placeholder" src="{{ image_file }}">#}
+                    {#                </span>#}
+                    <div class="media-body ml-2 d-none d-lg-block">
+                        <span class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">{{ current_user.username }}</span>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+        <!-- Header -->
+        <div class="header pb-8 pt-5 pt-md-8 d-flex align-items-center"
+             style="min-height: 600px; background-image: url(../assets/img/theme/image.png); background-size: cover; background-position: center top;">
+            <!-- Mask -->
+            <span class="mask bg-gradient-default opacity-8"></span>
+
+            <!-- Page content -->
+            <div class="container-fluid mt--7">
+                <div class="row mt-5 pt-5">
+                    <div class="col-lg-7 col-md-10">
+                        <h2 class="display-2 text-white">Analyze using a hashtag !</h2>
+                        <p class="text-white mt-0 mb-5">This is the analyze page. Here you can analyze your hashtag.</p>
+                        <button class="btn btn-info" type="button" onclick="display()">Analyse with date/without date
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-4 mt-2" style="display: none" id="withoutdate">
+                        <div class="card card-nav-tabs">
+                            <h4 class="card-header card-header-info">Using Hashtag</h4>
+                            <form action="https://127.0.0.1:5000/analysisresult" method="POST">
+                                <div class="card-body">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-first-name">Enter Hashtag</label>
+                                        <input type="text" name="hashtag" class="form-control form-control-alternative"
+                                               placeholder="Hashtag">
+                                    </div>
+                                    <div class="input-daterange datepicker row align-items-center">
+                                        <div class="col" style="visibility: hidden">
+                                            <div class="form-group">
+                                                <div class="input-group input-group-alternative">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="ni ni-calendar-grid-58"></i></span>
+                                                    </div>
+                                                    <input hidden class="form-control datepicker"
+                                                           placeholder="Start date (yyyy-mm-dd)" type="text"
+                                                           name="startdate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col" style="visibility: hidden">
+                                            <div class="form-group">
+                                                <div class="input-group input-group-alternative">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="ni ni-calendar-grid-58"></i></span>
+                                                    </div>
+                                                    <input class="form-control datepicker"
+                                                           placeholder="End date (yyyy-mm-dd)" type="text"
+                                                           name="enddate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Analyze</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-2" style="display: block" id="withdate">
+                        <div class="card card-nav-tabs">
+                            <h4 class="card-header card-header-info">Using Hashtag and date</h4>
+                            <form action="https://127.0.0.1:5000/analysisresultwithdate" method="POST">
+                                <div class="card-body">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-first-name">Enter Hashtag</label>
+                                        <input type="text" class="form-control form-control-alternative"
+                                               placeholder="Hashtag" name="hashtag">
+                                    </div>
+                                    <div class="input-daterange datepicker row align-items-center">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <div class="input-group input-group-alternative">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="ni ni-calendar-grid-58"></i></span>
+                                                    </div>
+                                                    <input class="form-control datepicker"
+                                                           placeholder="Start date (yyyy-mm-dd)" type="text"
+                                                           name="startdate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <div class="input-group input-group-alternative">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="ni ni-calendar-grid-58"></i></span>
+                                                    </div>
+                                                    <input class="form-control datepicker"
+                                                           placeholder="End date (yyyy-mm-dd)" type="text"
+                                                           name="enddate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Find</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                    {% if flag == 1 %}
+                        <div class="col-lg-8 mt-2 ml--2">
+                            <div class="card card-nav-tabs">
+                                <h4 class="card-header card-header-info text-center">Result Of the Analysis</h4>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-sm-12 mt-2">
+                                            <button class="btn btn-primary btn-sm" type="button" onclick="myFunction()">
+                                                Show Tabular Output
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-12 mt-2">
+                                            <button class="btn btn-primary btn-sm" type="button"
+                                                    onclick="myFunctiongraph()">Show Graphical Output
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-sm-12 mt-2">
+                                            <button class="btn btn-primary btn-sm" type="button"
+                                                    onclick="myFunctionsenti()">Sentiment Analysis
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-12 mt-2">
+                                            <a class="btn btn-primary btn-sm" type="button" href="{{ url_for('map') }}"
+                                               target="_blank">Graph</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card-body" id="tabularoutput" style="display: none">
+                                    <h4 class="card-title">Total Number of time hashtag appeared</h4>
+                                    <p class="card-text">{{ total }}</p>
+                                    <h4 class="card-title">top 10 people </h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h3>Username</h3>
+                                            {% for username in user_name %}
+                                                <p>{{ username }}</p>
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <h3>No. of times tweeted</h3>
+                                            {% for t in tweets %}
+                                                <p>{{ t }}</p>
+                                            {% endfor %}
+
+                                        </div>
+                                        <div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body" id="graphicaloutput" style="display: none">
+                                    <div class="row">
+                                        <div class="col-md-2">
+
+
+                                        </div>
+                                        <div class="col-md-8">
+
+
+                                            <div class="my--4 mx--3">
+                                                <img src="{{ graph3 }}" alt="Datewise Hashtag Usage"
+                                                     class="img-responsive" style="height: auto;max-width:100%;">
+                                            </div>
+                                            <div class="my--4 mx--3">
+                                                <img src="{{ graph4 }}" alt="Datewise Hashtag Usage"
+                                                     class="img-responsive" style="height: auto;max-width:100%">
+                                            </div>
+                                            <div class="my--4 mx--3">
+                                                <img src="{{ graph2 }}" alt="Hashtag Usage by top 10 user"
+                                                     class="img-responsive" style="height: auto;max-width:100%">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body" id="sentimentoutput" style="display: none">
+                                    <div class="row">
+                                        <div class="col-md-2">
+
+
+                                        </div>
+                                        <div class="col-md-8">
+
+                                            <div class="my--4 mx--3">
+                                                <img src="{{ graph }}" alt="Datewise Hashtag Usage"
+                                                     class="img-responsive" style="height: auto;max-width:100%;">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <h3 class="card-title">Overall Polarity</h3>
+                                    <p class="card-text">{{ polarity }}</p>
+
+
+                                    <h3 class="card-title">First 10 tweets' sentiments </h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h3>Tweet text</h3>
+                                            {% for tweet in FirstTenTweets %}
+                                                <p>{{ tweet }}</p>
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <h3>Sentiment</h3>
+                                            {% for t in sentiment %}
+                                                <p>{{ t }}</p>
+                                            {% endfor %}
+
+                                        </div>
+                                        <div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="row align-items-center justify-content-xl-between">
+                <div class="col-xl-6">
+                    <div class="copyright text-center text-xl-left text-muted">
+                        &copy; 2018 <a href="" class="font-weight-bold ml-1" target="_blank">Twitter Hashtag
+                        Analysis</a>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">Twitter Hashtag Analysis</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+    </div>
+{% endblock content %}
