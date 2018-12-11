@@ -1,6 +1,7 @@
 from textblob import TextBlob
 import matplotlib.pyplot as plt
 import pandas as pd
+from flaskblog.FileLocations import file_locations
 
 
 class SentimentAnalysis:
@@ -41,16 +42,20 @@ class SentimentAnalysis:
             return "Positive"
 
     def show_graph(self):
+        fig = plt.figure()
         labels = ['Postive [' + str(self.positive) + '%]', 'Neutral [' + str(self.neutral) + '%]',
                   'Negative [' + str(self.negative) + '%]']
         sizes = [self.positive, self.neutral, self.negative]
         colors = ['yellowgreen', 'gold', 'red']
         patches, texts = plt.pie(sizes, colors=colors, startangle=90)
+
         plt.legend(patches, labels, loc="best")
         plt.title('Sentiment Analysis of twitter texts')
         plt.axis('equal')
         plt.tight_layout()
-        plt.show()
+        # plt.show()
+        fig.savefig(file_locations.sentigraph)
+
 
     def f(self, x):
         return pd.Series(dict(Likes=x['likes'].sum(),
@@ -63,7 +68,7 @@ class SentimentAnalysis:
         x = [item for sublist in tweets for item in sublist]
         data = []
         for item in x:
-            p = TextBlob(item).sentiment.polarity
+            p = TextBlob(str(item)).sentiment.polarity
             if p == 0:
                 data.extend([[item, "Neutral"]])
             elif p < 0.00:
@@ -75,9 +80,9 @@ class SentimentAnalysis:
 
 if __name__ == '__main__':
 
-    df = pd.read_csv("C:/Users/hp/Desktop/Capstone2018/data.csv",
-                     names=['created_at', 'tweets', 'username', 'likes', 'retweet'])
+    df = pd.read_csv(file_locations.dataset,
+                     names=['created_at', 'tweets', 'username', 'likes', 'retweet', 'coordinates'])
     sentimentAnalysis = SentimentAnalysis()
-    print("Overall Polarity: "+sentimentAnalysis.polarity_analysis(df))
+    print("Overall Polarity: " + sentimentAnalysis.polarity_analysis(df))
     sentimentAnalysis.show_graph()
     print(sentimentAnalysis.ten_hashtags_polarity(df))
