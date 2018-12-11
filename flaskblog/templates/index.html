@@ -1,0 +1,81 @@
+{% extends "master.html" %}
+{% block content %}
+<!-- Main content -->
+  <div class="main-content">
+    <!-- Top navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/index.html">Dashboard</a>
+          <br>
+
+
+
+
+      </div>
+    </nav>
+    <!-- Header -->
+    <div class="header bg-gradient-default opacity-8 pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body text-center">
+          <!-- Card stats -->
+          <div class="row">
+            <h1 class="display-2 text-white">Welcome , {{ current_user.username }}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+      <div class="row">
+          <div class="col-xl-8 mb-5 mb-xl-0">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">About Us</h3>
+                </div>
+
+              </div>
+            </div>
+            <div class="table-responsive">
+                <div class="card-body">
+                  <p>
+                      <bold>
+                    Twitter Hashtag Analyser is an application for the Companies who wish to see how popular is
+                      their hashtag over the social networking sites such as twitter. It provides various services
+                      such as count the number of times the input hashtag has been used on the Twitter, view the
+                      top 10 user of the hashtag. Sentimental Analaysis of a hashtag and view the geographical
+                      locations of users using the hashtags. We intend to track the volume chart to see how the
+                      hashtags trend is and also show those social media profiles who uses those requested hashtag(s)
+                      most often.
+                      </bold>
+                </p>
+                </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="row align-items-center justify-content-xl-between">
+          <div class="col-xl-6">
+            <div class="copyright text-center text-xl-left text-muted">
+              &copy; 2018 <a href="" class="font-weight-bold ml-1" target="_blank">Twitter Hashtag Analysis</a>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+              <li class="nav-item">
+                <a href="" class="nav-link">Twitter Hashtag Analysis</a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+{% endblock content %}
