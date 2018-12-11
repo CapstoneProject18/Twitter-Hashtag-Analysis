@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  <title>Twitter Hashtag Analysis</title>
+  <!-- Favicon -->
+  <link href="/static/assets/img/brand/favicon.png" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="/static/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+  <link href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <!-- Argon CSS -->
+  <link type="text/css" href="./static/assets/css/argon.css?v=1.0.0" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Sidenav -->
+  <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+    <div class="container-fluid">
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+        <!-- Collapse header -->
+        <div class="navbar-collapse-header d-md-none">
+          <div class="row">
+{#            <div class="col-6 collapse-brand">#}
+{#              <a href="./index.html">#}
+{#                <img src="./assets/img/brand/blue.png">#}
+{#              </a>#}
+{#            </div>#}
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('dashboard') }}">
+              <i class="ni ni-tv-2 text-primary"></i> Home
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('analysis') }}">
+              <i class="ni ni-pin-3 text-orange"></i> Hashtag Analyze
+            </a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('contactus') }}">
+              <i class="ni ni-single-02 text-yellow"></i> Contact Us
+            </a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('account') }}">
+              <i class="ni ni-single-02 text-red"></i> User Profile
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">
+              <i class="ni ni-bullet-list-67 text-red"></i> Logout
+            </a>
+          </li>
+
+
+        </ul>
+
+
+      </div>
+    </div>
+  </nav>
+{% block content %}
+{% endblock %}
+  <!-- Argon Scripts -->
+  <!-- Core -->
+  <script src="/static/assets/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/static/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Optional JS -->
+  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  <!-- Argon JS -->
+  <script src="/static/assets/js/argon.js?v=1.0.0"></script>
+    <script>
+    function myFunction() {
+        var x = document.getElementById("tabularoutput");
+        var y = document.getElementById("graphicaloutput");
+        var z = document.getElementById("sentimentoutput");
+
+        if (x.style.display === "none") {
+            
+
+            if(y.style.display === "block"){
+              y.style.display = "none"
+            }
+            else if(z.style.display === "block"){
+              z.style.display = "none"
+            }
+            x.style.display = "block";
+
+
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function myFunctiongraph() {
+        var x = document.getElementById("tabularoutput");
+        var y = document.getElementById("graphicaloutput");
+        var z = document.getElementById("sentimentoutput");
+        if (y.style.display === "none") {
+            if(x.style.display === "block"){
+              x.style.display = "none"
+            }
+            else if(z.style.display === "block"){
+              z.style.display = "none"
+            }
+            y.style.display = "block";
+        } else {
+            y.style.display = "none";
+        }
+    }
+    function myFunctionsenti() {
+        var x = document.getElementById("tabularoutput");
+        var y = document.getElementById("graphicaloutput");
+        var z = document.getElementById("sentimentoutput");
+        if (z.style.display === "none") {
+            z.style.display = "block";
+            if(y.style.display === "block"){
+              y.style.display = "none"
+            }
+            else if(x.style.display === "block"){
+              x.style.display = "none"
+            }
+        } else {
+            z.style.display = "none";
+        }
+    }
+    function display() {
+        var wdate = document.getElementById("withoutdate");
+        var date = document.getElementById("withdate");
+
+        if (wdate.style.display === "none"){
+            wdate.style.display = "block"
+            date.style.display = "none";
+
+        }
+        else if(wdate.style.display === "block"){
+            wdate.style.display = "none";
+            date.style.display = "block";
+        }
+    }
+
+    </script>
+</body>
+
+</html>
