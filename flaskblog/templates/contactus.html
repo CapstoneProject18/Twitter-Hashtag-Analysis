@@ -1,0 +1,116 @@
+{% extends "master.html" %}
+{% block content %}
+    <!-- Main content -->
+    <div class="main-content">
+        <!-- Top navbar -->
+        <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+            <div class="container-fluid">
+                <!-- Brand -->
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Contact
+                    Us</a>
+
+                <div class="media align-items-center">
+
+                    <div class="media-body ml-2 d-none d-lg-block">
+                        <span class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">{{ current_user.username }}</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Header -->
+        <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+             style="min-height: 600px; background-image: url({{ image_file }}); background-size: cover; background-position: center top;">
+            <!-- Mask -->
+            <span class="mask bg-gradient-default opacity-8"></span>
+            <!-- Header container -->
+            <div class="container-fluid d-flex align-items-center">
+                <div class="row">
+                    <div class="col-lg-7 col-md-10">
+                        <h1 class="display-2 text-white">Hello,{{ current_user.username }}</h1>
+                        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made
+                            with your work and manage your projects or assigned tasks</p>
+                        <a href="#profileupdate" class="btn btn-info">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page content -->
+        <div class="container-fluid mt--7">
+            <div class="row">
+                <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+
+                </div>
+                <div class="col-xl-8 order-xl-1">
+                    <div class="card bg-secondary shadow" id="profileupdate">
+                        <div class="card-header bg-white border-0">
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <h3 class="mb-0">Contact Us</h3>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    <div class="alert alert-success" role="alert">
+                                        {% for message in messages %}
+                                            <strong>{{ message }}</strong>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+
+
+
+                            <h6 class="heading-small text-muted mb-4">Contact Us</h6>
+                            <div class="pl-lg-4">
+
+                                <form action="https://127.0.0.1:5000/contactusresponse" method="POST">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label">Enter Your Email</label>
+                                        <input type="text" class="form-control form-control-alternative"
+                                               placeholder="Email" name="Email">
+                                    </div>
+                                    <div class="form-group focused">
+                                        <label class="form-control-label">Enter Your Message</label>
+                                        <input type="text" class="form-control form-control-alternative"
+                                               placeholder="Message" name="Message">
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">Send Message</button>
+                                    </div>
+                                </form>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="row align-items-center justify-content-xl-between">
+                    <div class="col-xl-6">
+                        <div class="copyright text-center text-xl-left text-muted">
+                            &copy; 2018 <a href="" class="font-weight-bold ml-1" target="_blank">Twitter Hashtag
+                            Analysis</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">Twitter Hashtag Analysis</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+{% endblock content %}
