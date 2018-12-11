@@ -1,5 +1,5 @@
 import tweepy
-import twitter_credentials
+from flaskblog.DataExtraction import twitter_credentials
 
 
 class ExtractData:
@@ -18,6 +18,5 @@ class ExtractData:
 
 
 if __name__ == '__main__':
-
     extract_data = ExtractData()
     extract_data.extract_save(extract_data.authorize(), "camel")
